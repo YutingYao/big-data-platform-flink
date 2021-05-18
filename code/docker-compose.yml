@@ -1,0 +1,21 @@
+version: "3"
+services:
+  database:
+    image: mongo
+    restart: always
+    ports:
+      - "27017:27017"
+    volumes:
+      - /mnt:/data/db
+    env_file:
+      - secrets.env
+  mongo-express:
+    image: mongo-express
+    restart: always
+    ports:
+      - "8888:8081"
+    env_file:
+      - secrets.env
+    environment: 
+      - ME_CONFIG_MONGODB_SERVER=database
+      - ME_CONFIG_MONGODB_ENABLE_ADMIN=true
